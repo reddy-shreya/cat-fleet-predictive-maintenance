@@ -1,0 +1,17 @@
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Python environments
+__pycache__/
+.venv/
+venv/
+
+# Local Data and Databases (CRUCIAL)
+data/
+*.db
+*.sqlite
+
+# OS files
+Thumbs.db
+.DS_Store
