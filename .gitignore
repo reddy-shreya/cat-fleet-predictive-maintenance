@@ -1,3 +1,8 @@
+# Snowflake credentials — NEVER commit these
+rsa_key.p8
+rsa_key.pub
+.env
+
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 */.ipynb_checkpoints/*
