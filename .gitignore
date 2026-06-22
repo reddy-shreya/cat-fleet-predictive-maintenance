@@ -20,3 +20,5 @@ data/
 # OS files
 Thumbs.db
 .DS_Store
+
+*.pkl
