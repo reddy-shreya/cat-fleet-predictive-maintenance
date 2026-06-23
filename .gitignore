@@ -1,24 +1,41 @@
-# Snowflake credentials — NEVER commit these
+# ==============================================================================
+# SECURITY & CREDENTIALS (NEVER COMMIT THESE)
+# ==============================================================================
 rsa_key.p8
 rsa_key.pub
 .env
 
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints/
-*/.ipynb_checkpoints/*
-
-# Python environments
-__pycache__/
-.venv/
-venv/
-
-# Local Data and Databases (CRUCIAL)
+# ==============================================================================
+# LOCAL DATA, DATABASES, AND OUTPUTS (CRUCIAL FOR PREDICTIVE MAINTENANCE)
+# ==============================================================================
+# Ignores your whole data folder, including inference_predictions.csv
 data/
 *.db
 *.sqlite
+*.csv
 
-# OS files
+# ==============================================================================
+# TRAINED ML MODEL WEIGHTS (PREVENTS LARGE FILE BLOAT)
+# ==============================================================================
+*.pkl
+*.joblib
+
+# ==============================================================================
+# PYTHON ENVIRONMENTS & CACHE
+# ==============================================================================
+__pycache__/
+.venv/
+venv/
+*.pyc
+
+# ==============================================================================
+# JUPYTER NOTEBOOK CHECKPOINTS
+# ==============================================================================
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# ==============================================================================
+# OPERATING SYSTEM FILES
+# ==============================================================================
 Thumbs.db
 .DS_Store
-
-*.pkl
