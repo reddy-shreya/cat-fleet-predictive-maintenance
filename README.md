@@ -1,39 +1,43 @@
+# Cat Fleet Predictive Maintenance Pipeline
+
 Built a production-grade predictive maintenance system that transforms raw, highly imbalanced vehicle sensor telematics into actionable fleet routing decisions. Engineered an automated ETL stream (Bronze -> Silver -> Gold) to capture real-time mechanical degradation patterns, deployed an XGBoost engine to pinpoint at-risk assets with 99% confidence, and established a secure cloud data pipelines directly into Snowflake and Power BI to eliminate field breakdown overhead.
 
-🏗️ System Architecture
+---
 
+## 🏗️ System Architecture
+
+```text
                   +-----------------------------------+
                   |   Raw Telemetry CSV Ingestion     |
                   +-----------------------------------+
                                     |
                                     v
-
 +-----------------------------------------------------------------------+
-| SQLite3 Medallion DB |
-| - BRONZE: Raw staging table & initial column mapping |
-| - SILVER: DateTime parsing, 12h lookback windows, failure categorizing|
-| - GOLD: Rolling averages, 1-step lags, multi-sensor delta metrics |
+|                       SQLite3 Medallion DB                            |
+|  - BRONZE: Raw staging table & initial column mapping                 |
+|  - SILVER: DateTime parsing, 12h lookback windows, failure categorizing|
+|  - GOLD:   Rolling averages, 1-step lags, multi-sensor delta metrics  |
 +-----------------------------------------------------------------------+
-|
-v
-+-----------------------------------+
-| ML Inference Engine (XGBoost) |
-| - Isolates latest telemetry data |
-| - Classifies "At Risk" vehicles |
-+-----------------------------------+
-|
-v
-+-----------------------------------+
-| Snowflake Enterprise Data Warehouse|
-| - Secure RSA Key-Pair Auth |
-| - Optimized Pandas Bulk IO |
-+-----------------------------------+
-|
-v
-+-----------------------------------+
-| Power BI Operational Dashboard |
-| - Fleet-wide Risk Prioritization |
-+-----------------------------------+
+                                    |
+                                    v
+                  +-----------------------------------+
+                  |    ML Inference Engine (XGBoost)  |
+                  | - Isolates latest telemetry data  |
+                  | - Classifies "At Risk" vehicles   |
+                  +-----------------------------------+
+                                    |
+                                    v
+                  +-----------------------------------+
+                  | Snowflake Enterprise Data Warehouse|
+                  | - Secure RSA Key-Pair Auth        |
+                  | - Optimized Pandas Bulk IO        |
+                  +-----------------------------------+
+                                    |
+                                    v
+                  +-----------------------------------+
+                  |  Power BI Operational Dashboard   |
+                  | - Fleet-wide Risk Prioritization  |
+                  +-----------------------------------+
 
 🛠️ Tech Stack
 Data Engineering: Python, Pandas, NumPy, SQLite3
@@ -48,21 +52,22 @@ Business Intelligence: Power BI Desktop
 Based on your exact layout, the repository is organized as follows:
 
 ├── dashboard_screenshots/
-│ ├── brake.png # Micro-telemetry snapshot
-│ ├── page1.png # Power BI: Fleet Overview
-│ └── page2.png # Power BI: Machine Detail Deep-Dive
+│   ├── brake.png                      # Micro-telemetry snapshot
+│   ├── page1.png                      # Power BI: Fleet Overview
+│   └── page2.png                      # Power BI: Machine Detail Deep-Dive
 ├── notebooks/
-│ ├── 01_data_exploration.ipynb # EDA and initial profile validation
-│ ├── 02_medallion_etl.ipynb # Bronze & Silver data modeling
-│ ├── 03_feature_engineering.ipynb # Gold layer lag, delta, and rolling transforms
-│ ├── 04_snowflake_push.ipynb # Initial warehouse staging script
-│ ├── 05_model_training.ipynb # Model training & optimization with XGBoost
-│ ├── 06_inference_pipeline.ipynb # Automated operational risk scoring engine
-│ └── 07_loading_into_snowflake.ipynb# Secure key-pair data production pipeline
-├── .gitignore # Prevents tracking credentials & large cache files
-├── Fleet overview.pbix # Core Power BI development file
-├── README.md # Documentation
-└── requirements.txt # Project dependency map
+│   ├── 01_data_exploration.ipynb      # EDA and initial profile validation
+│   ├── 02_medallion_etl.ipynb         # Bronze & Silver data modeling
+│   ├── 03_feature_engineering.ipynb   # Gold layer lag, delta, and rolling transforms
+│   ├── 04_snowflake_push.ipynb        # Initial warehouse staging script
+│   ├── 05_model_training.ipynb        # Model training & optimization with XGBoost
+│   ├── 06_inference_pipeline.ipynb    # Automated operational risk scoring engine
+│   └── 07_loading_into_snowflake.ipynb# Secure key-pair data production pipeline
+├── .gitignore                         # Prevents tracking credentials & large cache files
+├── Fleet overview.pbix                # Core Power BI development file
+├── README.md                          # Documentation
+└── requirements.txt                   # Project dependency map
+
 
 ⚙️ Step-by-Step Implementation
 Exploration & Medallion Ingestion (01 - 02): Processes highly imbalanced telematics records (e.g., singular failure events vs. massive blocks of operational data). Maps labels to high-level system categories (Engine, Brake, Battery) and isolates a 12-hour lookback target window before historical failures occur.
@@ -88,3 +93,4 @@ Dashboard Layer: Bridges live warehouse views directly into desktop visualizatio
    The processing notebooks can be stepped through sequentially in numerical order (01 to 07) inside your Jupyter Notebook or Conda environment to rebuild the data layers, evaluate model weights, and stream inferences up to your analytical cloud layer.
 
 Developed by Reddy-Shreya — 2026 Predictive Maintenance Systems Portfolio
+```
